@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sachin Pandey | Infrastructure & Security Lead</title>
+    <title>Sachin Pandey | Strategic Infrastructure & Security Lead</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --accent: #38bdf8; --bg: #0f1115; --card-bg: rgba(255, 255, 255, 0.02); --border: rgba(255, 255, 255, 0.08); }
         body { background-color: var(--bg); color: #94a3b8; font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.6; overflow-x: hidden; }
         .mono { font-family: 'JetBrains Mono', monospace; }
-        h1, h2, h3 { color: #f8fafc; letter-spacing: -0.01em; }
+        h1, h2, h3, h4 { color: #f8fafc; letter-spacing: -0.01em; }
 
-        /* Technical Grid Background */
         .blueprint-bg {
             position: fixed; inset: 0; z-index: -1;
             background-image: linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
@@ -24,26 +22,24 @@
         .nav-link { font-size: 11px; font-family: 'JetBrains Mono'; color: #64748b; transition: 0.3s; text-transform: uppercase; letter-spacing: 0.1em; }
         .nav-link:hover { color: var(--accent); }
 
-        /* Multi-Panel Dashboard Layout */
-        .dashboard-container { display: grid; grid-template-columns: 1fr 360px; gap: 24px; padding-top: 100px; max-width: 1440px; margin: 0 auto; padding-bottom: 60px; }
+        .dashboard-container { display: grid; grid-template-columns: 1fr 400px; gap: 24px; padding-top: 100px; max-width: 1500px; margin: 0 auto; padding-bottom: 60px; }
 
-        /* Docked Professional Terminal */
+        /* Stateless Terminal */
         .admin-terminal { 
             position: sticky; top: 100px; background: #000; border: 1px solid #334155; 
-            border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,0.6); 
-            height: 520px; display: flex; flex-direction: column; 
+            border-radius: 4px; box-shadow: 0 30px 60px rgba(0,0,0,0.8); 
+            height: 550px; display: flex; flex-direction: column; 
         }
-        .term-header { background: #1e293b; padding: 10px 15px; font-size: 10px; color: #94a3b8; display: flex; justify-content: space-between; border-radius: 4px 4px 0 0; }
-        #term-out { flex: 1; padding: 15px; font-size: 12px; overflow-y: auto; color: var(--accent); font-family: 'JetBrains Mono'; scrollbar-width: none; line-height: 1.5; }
-        .term-input-area { background: #000; padding: 15px; border-top: 1px solid #1e293b; display: flex; gap: 10px; }
+        .term-header { background: #1e293b; padding: 10px 15px; font-size: 10px; color: #94a3b8; display: flex; justify-content: space-between; }
+        #term-out { flex: 1; padding: 15px; font-size: 12px; overflow-y: auto; color: var(--accent); font-family: 'JetBrains Mono'; scrollbar-width: none; line-height: 1.4; }
+        .term-input-area { background: #000; padding: 15px; border-top: 1px solid #1e293b; display: flex; gap: 10px; border-radius: 0 0 4px 4px; }
         #term-input { background: transparent; border: none; outline: none; color: #fff; width: 100%; font-size: 12px; font-family: 'JetBrains Mono'; }
 
-        .card { background: var(--card-bg); border: 1px solid var(--border); padding: 32px; border-radius: 4px; margin-bottom: 24px; transition: 0.3s; }
-        .card:hover { border-color: var(--accent); background: rgba(56, 189, 248, 0.01); }
+        .card { background: var(--card-bg); border: 1px solid var(--border); padding: 32px; border-radius: 4px; margin-bottom: 24px; }
         .status-pill { background: rgba(34, 197, 94, 0.1); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.2); padding: 2px 10px; border-radius: 100px; font-size: 10px; font-weight: 700; }
+        .skill-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 6px 12px; border-radius: 2px; font-size: 11px; color: #cbd5e1; display: inline-block; margin-right: 6px; margin-bottom: 6px; }
         
-        .stat-line { display: flex; justify-content: space-between; font-size: 11px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
-        @media (max-width: 1100px) { .dashboard-container { grid-template-columns: 1fr; padding: 100px 20px; } .admin-terminal { position: relative; top: 0; width: 100%; height: 400px; } }
+        @media (max-width: 1200px) { .dashboard-container { grid-template-columns: 1fr; padding: 100px 20px; } .admin-terminal { position: relative; top: 0; width: 100%; } }
     </style>
 </head>
 <body class="p-4">
@@ -52,12 +48,13 @@
 
     <nav class="fixed top-0 left-0 w-full z-50 px-10 py-5 flex justify-between items-center">
         <div class="flex gap-10">
-            <a href="#summary" class="nav-link">/sys/summary</a>
-            <a href="#tenure" class="nav-link">/sys/tenure</a>
+            <a href="#summary" class="nav-link">/sys/root</a>
+            <a href="#experience" class="nav-link">/sys/logs</a>
+            <a href="#arsenal" class="nav-link">/sys/bin</a>
         </div>
         <div class="text-right">
             <h1 class="text-sm font-bold uppercase tracking-tight text-white">Sachin Pandey</h1>
-            <p class="mono text-[9px] text-sky-400 uppercase tracking-widest font-bold">Sr. Infrastructure & Security Architect</p>
+            <p class="mono text-[9px] text-sky-400 uppercase tracking-widest font-bold">Sr. Infrastructure Architect</p>
         </div>
     </nav>
 
@@ -66,84 +63,84 @@
         <div class="space-y-6">
             <section id="summary" class="card">
                 <div class="flex items-center gap-3 mb-6">
-                    <span class="status-pill uppercase tracking-widest">Master Node: Operational</span>
-                    <span class="mono text-[10px] opacity-40 uppercase tracking-widest">// Node_uptime: 8Y_4M</span>
+                    <span class="status-pill uppercase">Admin Node: Authenticated</span>
+                    <span class="mono text-[10px] opacity-40 uppercase tracking-widest">// Uptime: 8Y+</span>
                 </div>
-                <h2 class="text-5xl font-bold mb-8 leading-tight text-white uppercase">
+                <h2 class="text-4xl font-bold mb-8 leading-tight text-white uppercase">
                     If a person could be <br>
                     <span class="text-sky-500 italic underline decoration-sky-500/30 underline-offset-8">ISO CERTIFIED,</span> I'd be the first.
                 </h2>
-                <p class="text-slate-400 text-lg leading-relaxed max-w-3xl">
-                    Senior System Administrator with 8+ years of infrastructure ownership. Currently the sole administrator at Intuji, bridging high-availability cloud architecture with rigorous ISO 27001 compliance.
+                <p class="text-slate-400 text-lg leading-relaxed max-w-4xl">
+                    Senior Systems Engineer owning business-critical infrastructure. Expert at combining <b>GCP/Proxmox</b> virtualization with the governance of <b>ISO 27001:2022</b>.
                 </p>
             </section>
 
-            <section id="tenure" class="grid md:grid-cols-2 gap-6">
-                <div class="card border-l-2 border-l-sky-500">
-                    <h4 class="mono text-sky-500 font-bold mb-4 uppercase text-xs tracking-widest">// Intuji [Aug 2023 - Present]</h4>
-                    <p class="text-sm text-slate-300">Sole owner of all IT infrastructure and security operations. Lead architect for ISO 27001:2022 ISMS implementation.</p>
-                </div>
-                <div class="card border-l-2 border-l-zinc-700 opacity-70">
-                    <h4 class="mono text-zinc-400 font-bold mb-4 uppercase text-xs tracking-widest">// Foodmandu [Feb 2022 - Aug 2023]</h4>
-                    <p class="text-sm text-zinc-500">Managed cloud-hybrid server environments and engineered enterprise-grade network infrastructure.</p>
+            <section id="experience" class="card">
+                <h3 class="mono text-xs uppercase tracking-[0.4em] text-slate-500 mb-12">System_Tenure.log</h3>
+                <div class="space-y-12">
+                    <div class="border-l-2 border-sky-500 pl-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="text-xl font-bold uppercase">Intuji Pvt. Ltd. | Senior System Administrator</h4>
+                            <span class="mono text-[10px] text-sky-500 uppercase">2023 — Present</span>
+                        </div>
+                        <ul class="text-[13px] text-slate-400 space-y-3">
+                            <li>• <b>Infrastructure Ownership:</b> Sole owner of all IT infrastructure and security operations.</li>
+                            <li>• <b>Compliance Mastery:</b> Lead implementation of ISO 27001:2022 ISMS.</li>
+                            <li>• <b>Virtualization:</b> Designed Proxmox VE environments and architected DRP processes.</li>
+                            <li>• <b>Automation:</b> Deployed Python/Bash scripts to automate complex infrastructure workflows.</li>
+                        </ul>
+                    </div>
+                    <div class="border-l-2 border-zinc-700 pl-8 opacity-70">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="text-xl font-bold uppercase">Foodmandu | Senior IT Officer</h4>
+                            <span class="mono text-[10px] text-zinc-500 uppercase">2022 — 2023</span>
+                        </div>
+                        <p class="text-[13px] text-slate-400">Management of cloud-hybrid environments and enterprise network infrastructure design.</p>
+                    </div>
                 </div>
             </section>
 
-            <section class="card">
-                <h3 class="mono text-xs uppercase tracking-[0.4em] text-slate-500 mb-8">Technical_Arsenal_Audit</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
-                    <div>
-                        <h5 class="mono text-white text-[11px] mb-4 uppercase tracking-widest">// Cloud & Virtual</h5>
-                        <ul class="text-[12px] space-y-2 opacity-60">
-                            <li>• GCP Infra & IAM</li>
-                            <li>• Proxmox VE Virt.</li>
-                            <li>• VM Life-cycle</li>
-                        </ul>
+            <section id="arsenal" class="card">
+                <h3 class="mono text-xs uppercase tracking-[0.4em] text-slate-500 mb-12">Strategic_Capability_Matrix</h3>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div class="space-y-8">
+                        <div>
+                            <h4 class="mono text-sky-500 font-bold uppercase text-[10px] mb-4">// Cloud & Virt</h4>
+                            <div class="flex flex-wrap"><span class="skill-item">GCP</span> <span class="skill-item">Proxmox VE</span> <span class="skill-item">Linux</span> <span class="skill-item">Windows Server</span></div>
+                        </div>
+                        <div>
+                            <h4 class="mono text-sky-500 font-bold uppercase text-[10px] mb-4">// Security & Compliance</h4>
+                            <div class="flex flex-wrap"><span class="skill-item">ISO 27001:2022 Lead</span> <span class="skill-item">DRP Engineering</span> <span class="skill-item">Sophos</span> <span class="skill-item">Cisco</span></div>
+                        </div>
                     </div>
-                    <div>
-                        <h5 class="mono text-white text-[11px] mb-4 uppercase tracking-widest">// Security & Risk</h5>
-                        <ul class="text-[12px] space-y-2 opacity-60">
-                            <li>• ISO 27001 Lead</li>
-                            <li>• Sophos/Cisco FW</li>
-                            <li>• DRP Engineering</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h5 class="mono text-white text-[11px] mb-4 uppercase tracking-widest">// Logic & Intel</h5>
-                        <ul class="text-[12px] space-y-2 opacity-60">
-                            <li>• Python & Bash</li>
-                            <li>• Make.com Automation</li>
-                            <li>• PowerBI/AppSheet</li>
-                        </ul>
+                    <div class="space-y-8">
+                        <div>
+                            <h4 class="mono text-sky-500 font-bold uppercase text-[10px] mb-4">// Automation</h4>
+                            <div class="flex flex-wrap"><span class="skill-item">Python</span> <span class="skill-item">Bash</span> <span class="skill-item">Make.com</span> <span class="skill-item">API Logic</span></div>
+                        </div>
+                        <div>
+                            <h4 class="mono text-sky-500 font-bold uppercase text-[10px] mb-4">// Ops & Intel</h4>
+                            <div class="flex flex-wrap"><span class="skill-item">PowerBI</span> <span class="skill-item">AppSheet</span> <span class="skill-item">Active Directory</span></div>
+                        </div>
                     </div>
                 </div>
             </section>
         </div>
 
-        <aside class="space-y-6">
+        <aside>
             <div class="admin-terminal mono">
                 <div class="term-header">
                     <span>bash — master@sachin: ~</span>
-                    <span class="text-[9px] text-green-500">SACHIN-GPT 1.0</span>
+                    <span class="text-[9px] text-green-500">AI BRIDGE: STATELESS</span>
                 </div>
                 <div id="term-out">
-                    <div class="mb-4 text-white font-bold">Administrative AI Console Initialized.</div>
-                    <div class="mb-4 opacity-70">Commands: <span class="text-white">ls, ip a, audit, whoami, clear, chat [message]</span></div>
-                    <div class="text-zinc-500 italic mb-4">"Type 'chat [your question]' to ask ChatGPT about Sachin's 8 years of experience."</div>
+                    <div class="mb-2 text-white font-bold">Sachin_Pandey_Mainframe [v29.0]</div>
+                    <div class="mb-4">System ready. Enter any question to consult the Technical AI representative.</div>
+                    <div class="text-zinc-600 italic border-l-2 border-zinc-800 pl-4 mb-4">No session tracking enabled. Direct query routing active.</div>
                 </div>
                 <div class="term-input-area">
                     <span class="text-sky-400 font-bold">$</span>
-                    <input type="text" id="term-input" spellcheck="false" autocomplete="off" placeholder="Audit query..." autofocus>
-                </div>
-            </div>
-
-            <div class="card p-6">
-                <h4 class="mono text-[10px] text-slate-500 mb-4 uppercase tracking-widest">Real-Time_System_Metrics</h4>
-                <div class="space-y-1">
-                    <div class="stat-line"><span>UPTIME</span><span class="text-white">8Y 4M 12D</span></div>
-                    <div class="stat-line"><span>COMPLIANCE</span><span class="text-green-500">ISO_27001_ACTIVE</span></div>
-                    <div class="stat-line"><span>AVAILABILITY</span><span class="text-white">99.9%_SLA</span></div>
-                    <div class="stat-line"><span>INFRA_OWNER</span><span class="text-white">MASTER_NODE</span></div>
+                    <input type="text" id="term-input" spellcheck="false" autocomplete="off" placeholder="Query Sachin-AI..." autofocus>
                 </div>
             </div>
         </aside>
@@ -154,37 +151,31 @@
         const input = document.getElementById('term-input');
         const out = document.getElementById('term-out');
 
-        const linuxDB = {
-            'ls': 'tenure_logs/  tech_stack/  ISO_27001_Policy.md  recovery_plan.sh',
-            'whoami': 'Sachin Pandey. Sr. Infrastructure & Security Lead. Auth: Admin.',
-            'ip a': 'eth0: <UP,LOWER_UP> mtu 1500\n    inet 192.168.100.1/24 scope global dynamic eth0\n    lo: 127.0.0.1/8 scope host',
-            'audit': '>>> SYSTEM AUDIT <<<\n- Experience: 8+ Years\n- Status: Sole IT Owner\n- Risk Mitigation: ISO 27001 Lead Implementer\n- Efficiency: Python/Bash/No-Code Automation',
-            'help': 'Commands: ls, ip a, whoami, audit, chat [message], clear'
+        const sysCmds = {
+            'ls': 'tenure_logs/  arsenal/  iso_27001_policy/  drp_blueprints/',
+            'whoami': 'Sachin Pandey. Sr. Infrastructure & Security Architect. Auth: Primary Node.',
+            'audit': '>>> SYSTEM AUDIT <<<\n- 8+ Years Enterprise Domain Experience\n- ISO 27001:2022 Lead Implementer\n- Sole IT Owner: Intuji Pvt. Ltd.\n- Virt: Proxmox/GCP expert.',
+            'clear': ''
         };
 
         input.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
-                const raw = input.value.trim();
-                const cmd = raw.toLowerCase();
+                const query = input.value.trim();
+                const cmd = query.toLowerCase();
                 const line = document.createElement('div');
-                line.innerHTML = `<span class="text-white font-bold">$ ${raw}</span>`;
+                line.innerHTML = `<span class="text-white font-bold">$ ${query}</span>`;
                 out.appendChild(line);
 
-                if (cmd.startsWith('chat ')) {
-                    const userMsg = raw.substring(5).trim();
-                    out.innerHTML += `<div class="text-green-500 mt-1 mb-2 italic">Sachin-GPT: Opening ChatGPT with your query...</div>`;
-                    
-                    // ChatGPT Deep Link with pre-filled context
-                    const context = "You are an expert recruiter auditing Sachin Pandey's profile. He is a Senior SysAdmin with 8+ years exp, an ISO 27001 Lead Implementer, and sole IT owner at Intuji. Answer this visitor question about him: ";
-                    const chatUrl = `https://chatgpt.com/?q=${encodeURIComponent(context + userMsg)}`;
-                    window.open(chatUrl, '_blank');
+                if (sysCmds.hasOwnProperty(cmd)) {
+                    if (cmd === 'clear') { out.innerHTML = ""; }
+                    else { out.innerHTML += `<div class="text-zinc-500 mt-1 mb-2 whitespace-pre-wrap">${sysCmds[cmd]}</div>`; }
                 } 
-                else if (linuxDB[cmd]) {
-                    out.innerHTML += `<div class="text-zinc-400 mt-1 mb-2 whitespace-pre-wrap">${linuxDB[cmd]}</div>`;
-                } 
-                else if (cmd === 'clear') { out.innerHTML = ""; }
-                else if (cmd !== '') {
-                    out.innerHTML += `<div class="text-red-900 mt-1 mb-2">Error: Command '${cmd}' not found. Try 'chat' or 'help'.</div>`;
+                else if (query !== "") {
+                    // Stateless AI Routing: No heavy processing or images
+                    out.innerHTML += `<div class="text-green-500 mt-1 mb-2 italic">Routing query to LLM instance...</div>`;
+                    const context = `Context: Sachin Pandey, Sr. Infrastructure Architect, 8+ years experience, ISO 27001:2022 Lead Implementer, expert in GCP/Proxmox/Python. Question: `;
+                    const endpoint = `https://chatgpt.com/?q=${encodeURIComponent(context + query)}`;
+                    window.open(endpoint, '_blank');
                 }
 
                 input.value = "";
