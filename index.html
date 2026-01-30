@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --accent: #38bdf8; --bg: #0f1115; --card-bg: rgba(255, 255, 255, 0.02); --border: rgba(255, 255, 255, 0.08); }
-        body { background-color: var(--bg); color: #94a3b8; font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.6; overflow-x: hidden; }
+        body { background-color: var(--bg); color: #94a3b8; font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.6; overflow-x: hidden; scroll-behavior: smooth; }
         .mono { font-family: 'JetBrains Mono', monospace; }
         h1, h2, h3, h4 { color: #f8fafc; tracking: -0.01em; }
 
@@ -18,166 +18,158 @@
             background-size: 60px 60px;
         }
 
-        nav { background: rgba(15, 17, 21, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+        nav { background: rgba(15, 17, 21, 0.98); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
         .nav-link { font-size: 11px; font-family: 'JetBrains Mono'; color: #64748b; transition: 0.3s; text-transform: uppercase; letter-spacing: 0.1em; }
         .nav-link:hover { color: var(--accent); }
 
-        .dashboard-container { display: grid; grid-template-columns: 1fr 420px; gap: 24px; padding-top: 100px; max-width: 1600px; margin: 0 auto; padding-bottom: 60px; }
+        .dashboard-container { max-width: 1200px; margin: 0 auto; padding: 120px 20px 60px 20px; }
 
-        /* Stateful Linux Terminal */
+        /* Flowing Terminal (Not Fixed) */
         .admin-terminal { 
-            position: sticky; top: 100px; background: #000; border: 1px solid #334155; 
+            background: #000; border: 1px solid #334155; 
             border-radius: 4px; box-shadow: 0 30px 60px rgba(0,0,0,0.8); 
-            height: 600px; display: flex; flex-direction: column; 
+            height: 500px; display: flex; flex-direction: column; 
+            margin-bottom: 60px;
         }
-        .term-header { background: #1e293b; padding: 10px 15px; font-size: 10px; color: #94a3b8; display: flex; justify-content: space-between; }
+        .term-header { background: #1e293b; padding: 10px 15px; font-size: 10px; color: #94a3b8; display: flex; justify-content: space-between; border-radius: 4px 4px 0 0; }
         #term-out { flex: 1; padding: 15px; font-size: 12px; overflow-y: auto; color: var(--accent); font-family: 'JetBrains Mono'; scrollbar-width: none; line-height: 1.4; white-space: pre-wrap; }
         .term-input-area { background: #000; padding: 15px; border-top: 1px solid #1e293b; display: flex; gap: 10px; border-radius: 0 0 4px 4px; }
         #term-input { background: transparent; border: none; outline: none; color: #fff; width: 100%; font-size: 12px; font-family: 'JetBrains Mono'; }
 
-        .card { background: var(--card-bg); border: 1px solid var(--border); padding: 32px; border-radius: 4px; margin-bottom: 24px; }
+        .card { background: var(--card-bg); border: 1px solid var(--border); padding: 40px; border-radius: 4px; margin-bottom: 40px; }
         .status-pill { background: rgba(34, 197, 94, 0.1); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.2); padding: 2px 10px; border-radius: 100px; font-size: 10px; font-weight: 700; }
         .tag { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 2px; font-size: 11px; color: #cbd5e1; display: inline-block; margin-right: 5px; margin-bottom: 5px; }
-        
-        @media (max-width: 1200px) { .dashboard-container { grid-template-columns: 1fr; padding: 100px 20px; } .admin-terminal { position: relative; top: 0; width: 100%; height: 450px; } }
     </style>
 </head>
-<body class="p-4">
+<body>
 
     <div class="blueprint-bg"></div>
 
     <nav class="fixed top-0 left-0 w-full z-50 px-10 py-5 flex justify-between items-center">
         <div class="flex gap-10">
-            <a href="#summary" class="nav-link">/root/executive_summary</a>
-            <a href="#experience" class="nav-link">/var/log/experience</a>
-            <a href="#arsenal" class="nav-link">/usr/bin/capability</a>
+            <a href="#summary" class="nav-link">/sys/root</a>
+            <a href="#console" class="nav-link">/sys/terminal</a>
+            <a href="#experience" class="nav-link">/sys/logs</a>
+            <a href="#arsenal" class="nav-link">/sys/bin</a>
         </div>
         <div class="text-right">
             <h1 class="text-sm font-bold uppercase tracking-tight text-white">Sachin Pandey</h1>
-            <p class="mono text-[9px] text-sky-400 uppercase tracking-widest font-bold">Senior Infrastructure & Security Architect</p>
+            <p class="mono text-[9px] text-sky-400 uppercase tracking-widest font-bold">Senior Infrastructure Architect</p>
         </div>
     </nav>
 
     <main class="dashboard-container">
         
-        <div class="space-y-6">
-            <section id="summary" class="card">
-                <div class="flex items-center gap-3 mb-6">
-                    <span class="status-pill uppercase">Infrastructure Node: Primary</span>
-                    <span class="mono text-[10px] opacity-40 uppercase tracking-widest">// ISO_27001_COMPLIANT</span>
-                </div>
-                <h2 class="text-4xl font-bold mb-8 leading-tight text-white uppercase">
-                    If a person could be <br>
-                    <span class="text-sky-500 italic underline decoration-sky-500/30 underline-offset-8">ISO CERTIFIED,</span> I'd be the first.
-                </h2>
-                <p class="text-slate-400 text-lg leading-relaxed max-w-4xl">
-                    Senior Systems Engineer with 8+ years of technical ownership. I specialize in architecting resilient, high-availability ecosystems that bridge the gap between complex <b>GCP/Proxmox</b> infrastructure and rigorous <b>ISO 27001:2022</b> compliance.
-                </p>
-            </section>
+        <section id="summary" class="card">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="status-pill uppercase">Authorized Admin Node</span>
+                <span class="mono text-[10px] opacity-40 uppercase tracking-widest">// ISO_27001_COMPLIANT</span>
+            </div>
+            <h2 class="text-4xl md:text-5xl font-bold mb-8 leading-tight text-white uppercase">
+                If a person could be <br>
+                <span class="text-sky-500 italic underline decoration-sky-500/30 underline-offset-8">ISO CERTIFIED,</span> I'd be the first.
+            </h2>
+            <p class="max-w-3xl text-slate-400 text-lg leading-relaxed">
+                Strategic Systems Engineer with 8+ years of technical dominance. I own enterprise infrastructure from the ground up—bridging high-availability <b>GCP/Proxmox</b> virtualization with the rigorous governance required for <b>ISO 27001:2022</b> compliance.
+            </p>
+        </section>
 
-            <section id="experience" class="card">
-                <h3 class="mono text-xs uppercase tracking-[0.4em] text-slate-500 mb-12">System_Tenure.log</h3>
-                
-                <div class="space-y-12">
-                    <div class="border-l-2 border-sky-500 pl-8">
-                        <div class="flex justify-between items-start mb-4">
-                            <h4 class="text-xl font-bold uppercase tracking-tight text-white">Intuji Pvt. Ltd. | Senior IT Executive</h4>
-                            <span class="mono text-[10px] text-sky-500 font-bold uppercase">Aug 2023 — Present</span>
-                        </div>
-                        <p class="text-[13px] text-slate-300 font-semibold mb-3">Role: Sole Infrastructure & Security Owner</p>
-                        <ul class="text-[13px] text-slate-400 space-y-3">
-                            <li>• <b>Strategic ISMS:</b> Delivered full implementation of ISO 27001:2022 Information Security Management System (ISMS).</li>
-                            <li>• <b>Cloud Virtualization:</b> Architected and managed business-critical Proxmox VE clusters and GCP environments.</li>
-                            <li>• <b>Disaster Recovery:</b> Engineered robust Backup & Restore frameworks (DRP) ensuring 99.9% operational availability.</li>
-                            <li>• <b>Security Operations:</b> Managed identity (AD/RBAC), network security, and performed regular internal audits.</li>
-                            <li>• <b>Efficiency:</b> Automated infrastructure provisioning using Python and Bash, reducing manual overhead by 40%.</li>
-                        </ul>
-                    </div>
-
-                    <div class="border-l-2 border-zinc-700 pl-8 opacity-80">
-                        <div class="flex justify-between items-start mb-4">
-                            <h4 class="text-xl font-bold uppercase tracking-tight">Foodmandu | Senior IT Officer</h4>
-                            <span class="mono text-[10px] text-zinc-500 font-bold uppercase">Feb 2022 — Aug 2023</span>
-                        </div>
-                        <ul class="text-[13px] text-slate-400 space-y-2">
-                            <li>• Managed hybrid Windows/Linux server fleets and optimized enterprise network topology.</li>
-                            <li>• Integrated advanced VoIP platforms and custom AppSheet solutions for IT asset lifecycle governance.</li>
-                        </ul>
-                    </div>
-
-                    <div class="border-l-2 border-zinc-700 pl-8 opacity-60">
-                        <div class="flex justify-between items-start mb-4">
-                            <h4 class="text-xl font-bold uppercase tracking-tight text-zinc-300">Goldstar Shoes | IT Officer</h4>
-                            <span class="mono text-[10px] text-zinc-500 font-bold uppercase">Jun 2020 — Jan 2022</span>
-                        </div>
-                        <p class="text-[13px] text-slate-500">Administered network security via Sophos/Cisco and deployed ERP systems with PowerBI executive dashboards.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section id="arsenal" class="card">
-                <h3 class="mono text-xs uppercase tracking-[0.4em] text-slate-500 mb-12">Technical_Capability_Arsenal</h3>
-                <div class="grid md:grid-cols-2 gap-10">
-                    <div class="space-y-8">
-                        <div>
-                            <h4 class="mono text-sky-500 font-bold uppercase text-[10px] mb-4 tracking-widest">// Cloud & Compute</h4>
-                            <div class="flex flex-wrap">
-                                <span class="tag">GCP (Compute/IAM/Net)</span> <span class="tag">Proxmox VE</span> <span class="tag">Linux (Ubuntu/CentOS)</span> <span class="tag">Windows Server</span> <span class="tag">Active Directory</span> <span class="tag">VM Lifecycle</span>
-                            </div>
-                        </div>
-                        <div>
-                            <h4 class="mono text-sky-500 font-bold uppercase text-[10px] mb-4 tracking-widest">// Security & Governance</h4>
-                            <div class="flex flex-wrap">
-                                <span class="tag">ISO 27001:2022 Lead Implementer</span> <span class="tag">DRP Engineering</span> <span class="tag">ISMS Auditing</span> <span class="tag">Sophos Firewall</span> <span class="tag">Cisco Networking</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="space-y-8">
-                        <div>
-                            <h4 class="mono text-sky-500 font-bold uppercase text-[10px] mb-4 tracking-widest">// Engineering & Scripting</h4>
-                            <div class="flex flex-wrap">
-                                <span class="tag">Python (Automation)</span> <span class="tag">Advanced Bash</span> <span class="tag">Infrastructure as Code</span> <span class="tag">Make.com / Zapier</span> <span class="tag">API Integration</span>
-                            </div>
-                        </div>
-                        <div>
-                            <h4 class="mono text-sky-500 font-bold uppercase text-[10px] mb-4 tracking-widest">// Ops Intelligence</h4>
-                            <div class="flex flex-wrap">
-                                <span class="tag">PowerBI Reporting</span> <span class="tag">AppSheet Ops</span> <span class="tag">ClickUp Mastery</span> <span class="tag">VoIP Architecture</span> <span class="tag">Capacity Planning</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <aside>
+        <section id="console">
             <div class="admin-terminal mono">
                 <div class="term-header">
                     <span>bash — master@sachin: <span id="pwd-display">~</span></span>
-                    <span class="text-[9px] text-green-500">STATEFUL EMULATOR READY</span>
+                    <span class="text-[9px] text-green-500">STATEFUL SESSION: ACTIVE</span>
                 </div>
                 <div id="term-out">
-                    <div class="mb-4 text-white font-bold">Authorized Administrative Access: sachin-terminal [v30.0]</div>
-                    <div class="mb-2 opacity-70">Use <span class="text-white">ls, cd, cat</span> to explore career modules.</div>
-                    <div class="mb-4 opacity-70">Try <span class="text-white">ip a, uptime, uname -a, whoami</span>.</div>
+                    <div class="mb-4 text-white font-bold">Mainframe Access: sachin-pandey [v31.0]</div>
+                    <div class="mb-2 opacity-70">Audit commands: <span class="text-white">ls, cd, cat, whoami, ip a, uptime</span>.</div>
+                    <div class="mb-4 opacity-70">Security status: <span class="text-green-500">ENCRYPTED</span>.</div>
                 </div>
                 <div class="term-input-area">
                     <span class="text-sky-400 font-bold">$</span>
-                    <input type="text" id="term-input" spellcheck="false" autocomplete="off" placeholder="Audit query..." autofocus>
+                    <input type="text" id="term-input" spellcheck="false" autocomplete="off" placeholder="Run system audit..." autofocus>
                 </div>
             </div>
-            
-            <div class="card p-6 mt-6">
-                <h4 class="mono text-[10px] text-slate-500 mb-4 uppercase tracking-widest">Global_System_Metrics</h4>
-                <div class="space-y-3 text-[11px]">
-                    <div class="flex justify-between border-b border-white/5 pb-2"><span>PROFESSIONAL UPTIME</span><span class="text-white">8Y 4M 12D</span></div>
-                    <div class="flex justify-between border-b border-white/5 pb-2"><span>ISMS STATUS</span><span class="text-green-500">ISO_27001_VALIDATED</span></div>
-                    <div class="flex justify-between border-b border-white/5 pb-2"><span>PRIMARY ROLE</span><span class="text-white">INFRA_OWNER_INTUJI</span></div>
-                    <div class="flex justify-between"><span>LOCATION_NODE</span><span class="text-white">KATHMANDU, NP</span></div>
-                </div>
-            </div>
-        </aside>
+        </section>
 
+        <section id="experience" class="card">
+            <h3 class="mono text-xs uppercase tracking-[0.4em] text-slate-500 mb-16">Administrative_Tenure_Logs</h3>
+            
+            <div class="space-y-16">
+                <div class="border-l-2 border-sky-500 pl-10">
+                    <div class="flex justify-between items-start mb-6">
+                        <h4 class="text-2xl font-bold uppercase tracking-tighter text-white">Intuji Pvt. Ltd. | Senior System Administrator</h4>
+                        <span class="mono text-[11px] text-sky-500 font-bold uppercase bg-sky-500/5 px-3 py-1">Aug 2023 — Present</span>
+                    </div>
+                    <p class="text-sm font-semibold text-slate-300 mb-4 underline decoration-sky-500/20 underline-offset-4">Primary Responsibility: Global Infrastructure & Security Ownership</p>
+                    <ul class="text-[14px] text-slate-400 space-y-4">
+                        <li>• <b>ISO 27001 Governance:</b> Sole lead for the end-to-end implementation of the ISO 27001:2022 ISMS framework, ensuring 100% compliance during external audits.</li>
+                        <li>• <b>Virtualization Mastery:</b> Architected and managed business-critical Proxmox VE clusters and GCP compute instances with zero unauthorized downtime.</li>
+                        <li>• <b>Disaster Recovery:</b> Engineered redundant backup/restoration (DRP) workflows, prioritizing 99.9% RTO/RPO targets.</li>
+                        <li>• <b>Network Sovereignty:</b> Designed and maintained enterprise networking policies including firewall management (Sophos/Cisco) and IAM (RBAC/AD).</li>
+                        <li>• <b>Automation Efficiency:</b> Reduced manual technical debt by 40% through custom Python and Bash automation scripts.</li>
+                    </ul>
+                </div>
+
+                <div class="border-l-2 border-zinc-700 pl-10 opacity-80">
+                    <div class="flex justify-between items-start mb-6">
+                        <h4 class="text-2xl font-bold uppercase tracking-tighter text-zinc-300">Foodmandu Pvt. Ltd. | Senior IT Officer</h4>
+                        <span class="mono text-[11px] text-zinc-500 font-bold uppercase bg-zinc-500/5 px-3 py-1">Feb 2022 — Aug 2023</span>
+                    </div>
+                    <ul class="text-[14px] text-slate-400 space-y-3">
+                        <li>• Managed hybrid Windows and Linux server fleets across cloud-based environments.</li>
+                        <li>• Engineered enterprise-grade network infrastructure and optimized VoIP platform reliability.</li>
+                        <li>• Developed custom asset lifecycle tracking via AppSheet for real-time hardware inventory governance.</li>
+                    </ul>
+                </div>
+
+                <div class="border-l-2 border-zinc-700 pl-10 opacity-60">
+                    <div class="flex justify-between items-start mb-6">
+                        <h4 class="text-2xl font-bold uppercase tracking-tighter text-zinc-400">Goldstar Shoes | IT Officer</h4>
+                        <span class="mono text-[11px] text-zinc-500 font-bold uppercase bg-zinc-500/5 px-3 py-1">Jun 2020 — Jan 2022</span>
+                    </div>
+                    <p class="text-[14px] text-slate-500 leading-relaxed">Administered enterprise network security via Sophos and Cisco devices. Spearheaded ERP platform deployments and architected PowerBI executive dashboards for data-driven operational intelligence.</p>
+                </div>
+            </div>
+            [Image of enterprise network infrastructure architecture showing cloud and security layers]
+        </section>
+
+        <section id="arsenal" class="card">
+            <h3 class="mono text-xs uppercase tracking-[0.4em] text-slate-500 mb-16">Technical_Capability_Arsenal</h3><div class="grid md:grid-cols-2 gap-16 mt-12">
+                <div class="space-y-10">
+                    <div>
+                        <h4 class="mono text-sky-500 font-bold uppercase text-[11px] mb-6 tracking-widest">// Cloud & Compute Platforms</h4>
+                        <div class="flex flex-wrap">
+                            <span class="tag">GCP (Compute/IAM/Net)</span> <span class="tag">Proxmox VE</span> <span class="tag">Ubuntu/CentOS</span> <span class="tag">Windows Server</span> <span class="tag">Active Directory</span> <span class="tag">RBAC</span> <span class="tag">VM Lifecycle Management</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="mono text-sky-500 font-bold uppercase text-[11px] mb-6 tracking-widest">// Security & Governance</h4>
+                        <div class="flex flex-wrap">
+                            <span class="tag">ISO 27001:2022 Lead</span> <span class="tag">DRP Engineering</span> <span class="tag">ISMS Auditing</span> <span class="tag">Sophos Firewall</span> <span class="tag">Cisco Networking</span> <span class="tag">Vulnerability Mitigation</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-10">
+                    <div>
+                        <h4 class="mono text-sky-500 font-bold uppercase text-[11px] mb-6 tracking-widest">// Automation & Scripting</h4>
+                        <div class="flex flex-wrap">
+                            <span class="tag">Python (Dev/Auto)</span> <span class="tag">Advanced Bash</span> <span class="tag">Make.com</span> <span class="tag">Zapier</span> <span class="tag">Infrastructure as Code (IaC)</span> <span class="tag">API Integration</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="mono text-sky-500 font-bold uppercase text-[11px] mb-6 tracking-widest">// Operational Intelligence</h4>
+                        <div class="flex flex-wrap">
+                            <span class="tag">PowerBI Business Intel</span> <span class="tag">AppSheet Ops</span> <span class="tag">ClickUp Mastery</span> <span class="tag">VoIP Architecture</span> <span class="tag">Capacity Planning</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="py-20 text-center mono text-[10px] text-slate-600 uppercase tracking-widest">
+            Sachin Pandey // Senior IT Ownership // Established 2018 // [C] 2026
+        </footer>
     </main>
 
     <script>
@@ -187,20 +179,21 @@
 
         let currentDir = "~";
         const fileSystem = {
-            "~": { dirs: ["experience", "arsenal"], files: ["whoami.txt", "uptime.sh"] },
-            "~/experience": { dirs: [], files: ["intuji.log", "foodmandu.log", "goldstar.log"] },
-            "~/arsenal": { dirs: [], files: ["cloud.list", "security.list", "automation.list"] }
+            "~": { dirs: ["experience", "arsenal"], files: ["whoami.txt", "uptime.sh", "metrics.log"] },
+            "~/experience": { dirs: [], files: ["intuji.md", "foodmandu.md", "goldstar.md"] },
+            "~/arsenal": { dirs: [], files: ["infra.txt", "security.txt", "automation.txt"] }
         };
 
         const fileContent = {
             "whoami.txt": "Sachin Pandey. Senior Infrastructure & Security Lead. 8+ years exp.",
             "uptime.sh": "UPTIME: 3058 days. RELIABILITY: 99.9%. STATUS: Active.",
-            "intuji.log": "[INTUJI] Senior SysAdmin. Owner of Proxmox clusters & GCP. Delivered ISO 27001 ISMS.",
-            "foodmandu.log": "[FOODMANDU] Sr. IT Officer. Cloud fleets (Win/Linux). VoIP Architect.",
-            "goldstar.log": "[GOLDSTAR] IT Officer. Sophos/Cisco network security. PowerBI Lead.",
-            "cloud.list": "GCP (IAM, Networking, Compute), Proxmox VE, VM Lifecycle Management.",
-            "security.list": "ISO 27001:2022 Lead Implementer, DRP Engineering, ISMS Auditing.",
-            "automation.list": "Python, Advanced Bash, Make.com, AppSheet, PowerBI."
+            "metrics.log": "ISO_27001: COMPLIANT | GCP: OPERATIONAL | PROXMOX: OPERATIONAL",
+            "intuji.md": "# INTUJI Tenure\n- Role: Senior SysAdmin (Sole Owner)\n- Impact: Delivered ISO 27001:2022 ISMS.\n- Infra: Managed Proxmox & GCP clusters.",
+            "foodmandu.md": "# FOODMANDU Tenure\n- Role: Senior IT Officer.\n- Impact: Hybrid Cloud fleets & VoIP architecture.",
+            "goldstar.md": "# GOLDSTAR Tenure\n- Role: IT Officer.\n- Impact: Sophos/Cisco Networking & PowerBI dashboards.",
+            "infra.txt": "Primary: GCP, Proxmox VE, Ubuntu, Windows Server, AD.",
+            "security.txt": "Primary: ISO 27001 Lead, DRP Engineering, Firewall Strategy.",
+            "automation.txt": "Primary: Python, Bash, Make.com, AppSheet."
         };
 
         input.addEventListener('keydown', (e) => {
@@ -246,17 +239,7 @@
                         if (arg === '-a') res = "Linux sachin-mainframe 5.15.0-89-generic #99-Ubuntu SMP 2026 x86_64";
                         break;
                     case 'help':
-                        res = "Available: ls, cd, cat, pwd, whoami, ip a, uptime, uname -a, joke, clear";
-                        break;
-                    case 'joke':
-                        fetch('https://official-joke-api.appspot.com/random_joke')
-                        .then(r => r.json()).then(d => {
-                            const dDiv = document.createElement('div');
-                            dDiv.className = "text-yellow-500 mt-1 mb-2";
-                            dDiv.textContent = `${d.setup} — ${d.punchline}`;
-                            out.appendChild(dDiv);
-                            out.scrollTop = out.scrollHeight;
-                        });
+                        res = "Available: ls, cd, cat, pwd, whoami, ip a, uptime, uname -a, clear";
                         break;
                     case 'clear':
                         out.innerHTML = "";
