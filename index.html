@@ -2,136 +2,182 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Be My Valentine Ekta Hajur 💖</title>
+<title>Match Checker</title>
+
 <style>
-    body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-        overflow: hidden;
-    }
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Inter', sans-serif;
+    background: radial-gradient(circle at center, #0f2027, #203a43, #2c5364);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
 
-    .card {
-        background: rgba(255, 255, 255, 0.9);
-        padding: 40px 50px;
-        border-radius: 20px;
-        text-align: center;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        z-index: 2;
-    }
+.box {
+    background: rgba(0,0,0,0.6);
+    padding: 40px;
+    border-radius: 18px;
+    width: 460px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+    text-align: center;
+}
 
-    h1 {
-        color: #ff4d6d;
-        margin-bottom: 30px;
-        font-size: 2.2rem;
-    }
+.names {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
 
-    .buttons {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-    }
+input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1rem;
+}
 
-    button {
-        border: none;
-        border-radius: 30px;
-        padding: 12px 28px;
-        font-size: 1.1rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
+input[readonly] {
+    background: #333;
+    color: #aaa;
+}
 
-    #yesBtn {
-        background: #ff4d6d;
-        color: white;
-        font-size: 1.2rem;
-    }
+button {
+    margin-top: 20px;
+    padding: 12px 30px;
+    border-radius: 30px;
+    border: none;
+    background: #ff4d6d;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
 
-    #noBtn {
-        background: #ccc;
-        color: #333;
-    }
+.hidden {
+    display: none;
+}
 
-    #yesBtn:hover {
-        background: #ff2f55;
-    }
+.loader {
+    margin: 30px auto;
+    width: 50px;
+    height: 50px;
+    border: 5px solid #555;
+    border-top: 5px solid #ff4d6d;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
 
-    .message {
-        display: none;
-        margin-top: 25px;
-        font-size: 1.5rem;
-        color: #ff4d6d;
-    }
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
 
-    /* Floating hearts */
-    .heart {
-        position: absolute;
-        bottom: -50px;
-        font-size: 24px;
-        animation: floatUp 8s linear infinite;
-        opacity: 0.7;
-    }
+.popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    @keyframes floatUp {
-        0% {
-            transform: translateY(0) scale(1);
-            opacity: 0.8;
-        }
-        100% {
-            transform: translateY(-110vh) scale(1.5);
-            opacity: 0;
-        }
-    }
+.popup-box {
+    background: #111;
+    padding: 30px;
+    border-radius: 16px;
+    text-align: center;
+}
+
+.options button {
+    margin: 10px;
+}
 </style>
 </head>
+
 <body>
 
-<div class="card">
-    <h1>Will you be my Valentine, Dear Ekta? 💘</h1>
-    <div class="buttons">
-        <button id="yesBtn">Yes 💖</button>
-        <button id="noBtn">No 😅</button>
+<div class="box" id="main">
+    <h1>Match Checker</h1>
+
+    <div class="names">
+        <input value="Sachin" readonly>
+        <input id="theirName" placeholder="Her name">
     </div>
-    <div class="message" id="loveMsg">
-        Yayyy! 💕 I knew it! 😍💖
+
+    <button onclick="start()">Check Match</button>
+
+    <div id="checking" class="hidden">
+        <p>Match checking…</p>
+        <div class="loader"></div>
     </div>
+
+    <div id="result" class="hidden"></div>
 </div>
 
 <script>
-    let yesBtn = document.getElementById("yesBtn");
-    let noBtn = document.getElementById("noBtn");
-    let message = document.getElementById("loveMsg");
+const allowed = ["ekta thapa", "mellisa thapa", "puntu"];
 
-    let yesSize = 1.2;
+function start() {
+    document.getElementById("checking").classList.remove("hidden");
+    document.getElementById("result").classList.add("hidden");
 
-    noBtn.addEventListener("click", () => {
-        yesSize += 0.3;
-        yesBtn.style.transform = `scale(${yesSize})`;
-    });
+    setTimeout(checkMatch, 2500);
+}
 
-    yesBtn.addEventListener("click", () => {
-        message.style.display = "block";
-        noBtn.style.display = "none";
-        yesBtn.style.transform = "scale(1.5)";
-    });
+function checkMatch() {
+    const name = document.getElementById("theirName").value.trim().toLowerCase();
+    const checking = document.getElementById("checking");
+    const result = document.getElementById("result");
 
-    // Create floating hearts
-    setInterval(() => {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "💖";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = (6 + Math.random() * 4) + "s";
-        document.body.appendChild(heart);
+    checking.classList.add("hidden");
+    result.classList.remove("hidden");
 
-        setTimeout(() => {
-            heart.remove();
-        }, 10000);
-    }, 500);
+    if (allowed.includes(name)) {
+        result.innerHTML = `
+            <h2>Match: 100% 💖</h2>
+            <p>Perfect compatibility detected.</p>
+            <button onclick="ask()">Proceed</button>
+        `;
+    } else {
+        result.innerHTML = `
+            <h2>Match: 0%</h2>
+            <p>No compatibility found.</p>
+        `;
+    }
+}
+
+function ask() {
+    showQuestion();
+}
+
+function showQuestion() {
+    document.body.insertAdjacentHTML("beforeend", `
+        <div class="popup" id="popup">
+            <div class="popup-box">
+                <h2>Be my Valentine? 💘</h2>
+                <div class="options">
+                    <button onclick="yes()">Yes</button>
+                    <button onclick="no()">No</button>
+                </div>
+            </div>
+        </div>
+    `);
+}
+
+function no() {
+    document.getElementById("popup").remove();
+    alert("Never happening 🙂");
+    setTimeout(showQuestion, 300);
+}
+
+function yes() {
+    document.getElementById("popup").remove();
+    document.getElementById("main").innerHTML = `
+        <h1>Confirmed 💕</h1>
+        <p>Valentine locked in.</p>
+    `;
+}
 </script>
 
 </body>
